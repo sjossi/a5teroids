@@ -10,12 +10,12 @@ var oldtime;
 var dt;
 
 var Config = {
-	asteroids: 3,
-	sensitivity: 3,
+	ASTEROIDS: 3,
+	SENSITIVITY: 3,
 	
-	acceleration: 0.05,
-	friction: 0.995,
-	max_velocity: 4
+	ACCELERATION: 0.05,
+	FRICTION: 0.995,
+	MAX_VELOCITY: 4
 }
 
 function Vector(x_, y_){
@@ -99,7 +99,7 @@ function init(){
 	blaster = new Blaster();
 
 	// generate asteroids
-	for (var i=0; i < Config.asteroids; i++) {
+	for (var i=0; i < Config.ASTEROIDS; i++) {
 		  asteroids.push(new Asteroid());
 		};	
 	
@@ -156,29 +156,24 @@ Blaster.prototype = {
 	accelerate: function(){
 		
 		this.velocity.add(
-      new Vector(Config.acceleration/Math.cos(this.rotation-Math.PI/2),
-                 Config.acceleration/Math.sin(this.rotation-Math.PI/2)
+      new Vector(Config.ACCELERATION/Math.cos(this.rotation-Math.PI/2),
+                 Config.ACCELERATION/Math.sin(this.rotation-Math.PI/2)
                 )
     );
  		
-		if (this.velocity.length() > Config.max_velocity){
-			this.velocity.normalize(Config.max_velocity);
-		}
+    if (this.velocity.length() > Config.MAX_VELOCITY){
+      this.velocity.normalize(Config.MAX_VELOCITY);
+    }
 	},
 	
 	update: function(){
+
 		if (Key.isDown(Key.UP)) this.accelerate();
 		if (Key.isDown(Key.LEFT)) this.turnLeft();
 		if (Key.isDown(Key.RIGHT)) this.turnRight();
 		
-		
-		ctx.save();
-		ctx.translate(this.x, this.y);
-		
 		this.x += this.velocity.x;
 		this.y += this.velocity.y;
-		
-		ctx.restore();
 		
 	}
 
@@ -295,8 +290,8 @@ function runLoop(time){
 						"<table>" +
 						"<tr><td>" + "Rotation: " + "</td><td>" + blaster.rotation + "</td></tr>" +
 						"<tr><td>" + "<br /> Rotation-pi/2 " +  "</td><td>" + (blaster.rotation-Math.PI/2) + "</td></tr>" +
-						"<tr><td>" + "<br /> acc/sin " + "</td><td>" + (Config.acceleration/Math.sin(blaster.rotation-Math.PI/2)) +"</td></tr>" +
-						"<tr><td>" + "<br /> acc/cos " + "</td><td>" + (Config.acceleration/Math.cos(blaster.rotation-Math.PI/2)) +"</td></tr>" +
+						"<tr><td>" + "<br /> acc/sin " + "</td><td>" + (Config.ACCELERATION/Math.sin(blaster.rotation-Math.PI/2)) +"</td></tr>" +
+						"<tr><td>" + "<br /> acc/cos " + "</td><td>" + (Config.ACCELERATION/Math.cos(blaster.rotation-Math.PI/2)) +"</td></tr>" +
 						"<tr><td>" + "<br /> sin(rotation-pi/2): " + "</td><td>" + (Math.sin(blaster.rotation-Math.PI/2)) +"</td></tr>" +
 						"<tr><td>" + "<br /> cos(rotation-pi/2): " + "</td><td>" + (Math.cos(blaster.rotation-Math.PI/2)) +"</td></tr>" +
 						"<tr><td>" + "<br /> Velocity x: " + "</td><td>" + blaster.velocity.x +"</td></tr>" +
