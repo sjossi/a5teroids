@@ -1,4 +1,3 @@
-(
 var WIDTH = 800;
 var HEIGHT = 600;
 
@@ -156,10 +155,11 @@ Blaster.prototype = {
 	
 	accelerate: function(){
 		
-		this.acceleration.set(Config.acceleration/Math.cos(this.rotation-Math.PI/2),
-						Config.acceleration/Math.sin(this.rotation-Math.PI/2))
-		
-		this.velocity.add(this.acceleration);
+		this.velocity.add(
+      new Vector(Config.acceleration/Math.cos(this.rotation-Math.PI/2),
+                 Config.acceleration/Math.sin(this.rotation-Math.PI/2)
+                )
+    );
  		
 		if (this.velocity.length() > Config.max_velocity){
 			this.velocity.normalize(Config.max_velocity);
@@ -309,4 +309,4 @@ function runLoop(time){
 }
 
 window.addEventListener('keyup', function(event){ Key.onKeyUp(event);}, false);
-window.addEventListener('keydown', function(event){ Key.onKeyDown(event);}, false);)
+window.addEventListener('keydown', function(event){ Key.onKeyDown(event);}, false);
