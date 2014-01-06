@@ -32,7 +32,7 @@ Vector.prototype = {
 		this.y = y_;
 	},
 	
-	add: function(v_){s
+	add: function(v_){
 		this.x += v_.x;
 		this.y += v_.y;
 	},
