@@ -1,3 +1,4 @@
+(function() {
 var WIDTH = 800;
 var HEIGHT = 600;
 
@@ -16,7 +17,7 @@ var Config = {
 	ACCELERATION: 0.05,
 	FRICTION: 0.995,
 	MAX_VELOCITY: 4
-}
+};
 
 function Vector(x_, y_){
 	
@@ -69,7 +70,7 @@ Vector.prototype = {
 		return Math.atan2(this.y, this.x);
 	}
 	
-}
+};
 
 
 window.addEventListener('load', init, false);
@@ -107,7 +108,7 @@ function init(){
 	runLoop();
 	
 
-}
+};
 
 function Blaster(){
 	
@@ -177,7 +178,7 @@ Blaster.prototype = {
 		
 	}
 
-}
+};
 
 
 
@@ -221,7 +222,7 @@ Asteroid.prototype = {
 		
 	}
 
-}
+};
 
 var AsteroidForm = [
 	[
@@ -305,3 +306,4 @@ function runLoop(time){
 
 window.addEventListener('keyup', function(event){ Key.onKeyUp(event);}, false);
 window.addEventListener('keydown', function(event){ Key.onKeyDown(event);}, false);
+})();
