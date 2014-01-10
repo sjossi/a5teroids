@@ -18,47 +18,46 @@ var Config = {
 	FRICTION: 0.995,
 	MAX_VELOCITY: 4
 };
-
-function Vector(x_, y_){
+function Vector(_x, _y){
 	
-	this.x = x_ || 0;
-	this.y = y_ || 0;
+	this.x = _x || 0;
+	this.y = _y || 0;
 
 }
 
 Vector.prototype = {
 	
-	set: function(x_, y_){
-		this.x = x_;
-		this.y = y_;
+	set: function(_x, _y){
+		this.x = _x;
+		this.y = _y;
 	},
 	
-	add: function(v_){
-		this.x += v_.x;
-		this.y += v_.y;
+	add: function(_v){
+		this.x += _v.x;
+		this.y += _v.y;
 	},
 	
-	multiply: function(v_){
-		this.x *= v_.x;
-		this.y *= v_.y;
+	multiply: function(_v){
+		this.x *= _v.x;
+		this.y *= _v.y;
 	},
 	
-	addS: function(s_){
-		this.x += s_;
-		this.y += s_;
+	addS: function(_s){
+		this.x += _s;
+		this.y += _s;
 	},
 	
-	multiplyS: function(s_){
-		this.x *= s_;
-		this.y *= s_;
+	multiplyS: function(_s){
+		this.x *= _s;
+		this.y *= _s;
 	},
 	
-	normalize: function(l_){
+	normalize: function(_l){
 		this.x = this.x / this.length();
 		this.y = this.y / this.length();
 		
-		this.x = this.x * l_;
-		this.y = this.y * l_;
+		this.x = this.x * _l;
+		this.y = this.y * _l;
 		
 	},
 	
@@ -97,7 +96,7 @@ function init(){
 	canvas.focus();
 	
 	// spawn objects
-	blaster = new Blaster();
+	var blaster = new Blaster();
 
 	// generate asteroids
 	for (var i=0; i < Config.ASTEROIDS; i++) {
@@ -202,7 +201,7 @@ Asteroid.prototype = {
 		
 		ctx.beginPath();
 		ctx.moveTo(this.x + f[0][0], this.y + f[0][1]);	
-		for(var i=1; i<f.length; i++){
+		for(var i=1, len=f.length; i<len; i++){
 		  ctx.lineTo(this.x + f[i][0] , this.y + f[i][1]);
 		};
 		ctx.lineTo(this.x + f[0][0], this.y + f[0][1]);
