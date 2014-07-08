@@ -4,6 +4,7 @@ var HEIGHT = 600;
 
 var ctx;
 var canvas;
+var blaster;
 var asteroids = [];
 
 var timestamp;
@@ -18,6 +19,7 @@ var Config = {
 	FRICTION: 0.995,
 	MAX_VELOCITY: 4
 };
+
 function Vector(_x, _y){
 	
 	this.x = _x || 0;
@@ -26,7 +28,6 @@ function Vector(_x, _y){
 }
 
 Vector.prototype = {
-	
 	set: function(_x, _y){
 		this.x = _x;
 		this.y = _y;
@@ -59,6 +60,14 @@ Vector.prototype = {
 		this.x = this.x * _l;
 		this.y = this.y * _l;
 		
+	},
+
+	dotProduct: function(_v){
+		var xproduct = this.x * _v.x;
+		var yproduct = this.y * _v.y;
+		var dotproduct = this.xproduct + this.yproduct;
+
+		return dotproduct;
 	},
 	
 	length: function(){
@@ -96,7 +105,7 @@ function init(){
 	canvas.focus();
 	
 	// spawn objects
-	var blaster = new Blaster();
+	blaster = new Blaster();
 
 	// generate asteroids
 	for (var i=0; i < Config.ASTEROIDS; i++) {
@@ -110,7 +119,6 @@ function init(){
 };
 
 function Blaster(){
-	
 	this.x = canvas.width/2;
 	this.y = canvas.height/2;
 	
@@ -121,7 +129,6 @@ function Blaster(){
 }
 
 Blaster.prototype = {
-
 	draw: function(){
 		//reposition if off-screen
 		if (this.x > canvas.width){this.x = 0};
@@ -154,35 +161,30 @@ Blaster.prototype = {
 	},
 	
 	accelerate: function(){
-		
 		this.velocity.add(
       new Vector(Config.ACCELERATION/Math.cos(this.rotation-Math.PI/2),
                  Config.ACCELERATION/Math.sin(this.rotation-Math.PI/2)
                 )
-    );
- 		
-    if (this.velocity.length() > Config.MAX_VELOCITY){
-      this.velocity.normalize(Config.MAX_VELOCITY);
-    }
+	    );
+			
+	    if (this.velocity.length() > Config.MAX_VELOCITY){
+	      this.velocity.normalize(Config.MAX_VELOCITY);
+	    }
 	},
 	
 	update: function(){
-
 		if (Key.isDown(Key.UP)) this.accelerate();
 		if (Key.isDown(Key.LEFT)) this.turnLeft();
 		if (Key.isDown(Key.RIGHT)) this.turnRight();
 		
 		this.x += this.velocity.x;
 		this.y += this.velocity.y;
-		
 	}
-
 };
 
 
 
 function Asteroid(x,y,velocity,form){
-	
 	// constructor
 	this.x = x ||  Math.round(Math.random()*200+100);
 	this.y = y ||  Math.round(Math.random()*200+100);
@@ -206,7 +208,6 @@ Asteroid.prototype = {
 		};
 		ctx.lineTo(this.x + f[0][0], this.y + f[0][1]);
 		ctx.stroke();
-		
 	},
 	
 	update: function(){
@@ -218,7 +219,6 @@ Asteroid.prototype = {
 		if (this.x < 0){this.x = canvas.width};
 		if (this.y > canvas.height){this.y = 0};
 		if (this.y < 0){this.y = canvas.height};
-		
 	}
 
 };
@@ -246,7 +246,6 @@ var AsteroidForm = [
 ];
 
 var Key = {
-	
 	_pressed: {},
 	
 	LEFT: 37,
@@ -268,7 +267,6 @@ var Key = {
 };
 
 function runLoop(time){
-	
 	dt = time - oldtime;
 	oldtime = time;
 	
